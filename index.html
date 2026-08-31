@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UQ Chess Club — The University of Queensland</title>
+<meta name="description" content="The University of Queensland Chess Club. Weekly meetings every Wednesday from 5pm at Forgan Smith E107. Social chess, tournaments and variants. All levels welcome.">
+<link rel="icon" href="uq-chess-knight.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --p900:#2C0E42;
+  --p700:#4A1A6B;
+  --p600:#6B2E93;
+  --p500:#7B2CBF;
+  --lilac:#B388F0;
+  --cream:#F3E9D8;
+  --tint:#F8F5FB;
+  --tint2:#F0E9F6;
+  --ink:#1A1420;
+  --muted:#6B6272;
+  --line:#E2DDE8;
+  --rule:#1A1420;
+  --font:"Jost",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --wrap:1180px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:#fff;color:var(--ink);
+  font-family:var(--font);font-size:17px;font-weight:400;line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:var(--p500)}
+.wrap{width:100%;max-width:var(--wrap);margin:0 auto;padding:0 28px}
+:focus-visible{outline:2px solid var(--p500);outline-offset:3px}
+
+/* ---------- masthead ---------- */
+.masthead{text-align:center;padding:46px 0 30px}
+.masthead .logo{height:200px;width:auto;margin:0 auto}
+.masthead .tagline{
+  margin:26px auto 0;max-width:640px;font-size:15px;letter-spacing:.06em;color:var(--muted);
+}
+.masthead .tagline b{color:var(--ink);font-weight:500}
+
+/* ---------- nav ---------- */
+.nav{
+  position:sticky;top:0;z-index:50;background:rgba(255,255,255,.97);
+  backdrop-filter:blur(8px);
+  border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+}
+.nav-in{display:flex;justify-content:center;flex-wrap:wrap;gap:0}
+.nav a{
+  position:relative;text-decoration:none;color:var(--ink);
+  font-size:17px;font-weight:400;letter-spacing:.01em;padding:16px 26px;
+  transition:color .16s;
+}
+.nav a:hover{color:var(--p500)}
+.nav a.on{color:var(--p500)}
+.nav a.on::before,.nav a.on::after{
+  content:"";position:absolute;left:0;right:0;height:3px;background:var(--p500);
+}
+.nav a.on::before{top:-1px}
+.nav a.on::after{bottom:-1px}
+
+/* ---------- next event band ---------- */
+.next-band{
+  background:var(--p900);color:#fff;text-align:center;padding:22px 28px;
+}
+.next-band .lbl{
+  display:block;font-size:11px;font-weight:500;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--lilac);margin-bottom:6px;
+}
+.next-band .val{font-size:20px;font-weight:500}
+.next-band .val span{
+  display:block;font-size:14.5px;font-weight:300;color:rgba(255,255,255,.72);
+  letter-spacing:.04em;margin-top:3px;
+}
+
+/* ---------- sections ---------- */
+.sec{padding:72px 0}
+.sec-tint{background:var(--tint);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.head{text-align:center;margin:0 0 40px}
+.head h2{
+  font-size:clamp(27px,3.6vw,36px);font-weight:600;letter-spacing:.01em;margin:0;line-height:1.2;
+}
+.head .rule{width:58px;height:3px;background:var(--p600);margin:16px auto 0}
+.head p{margin:16px auto 0;max-width:56ch;font-size:15.5px;color:var(--muted)}
+.sub-head{
+  text-align:center;font-size:14px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--p600);margin:0 0 20px;
+}
+.sub-head.spaced{margin-top:56px}
+
+/* ---------- tables ---------- */
+.scroller{overflow-x:auto}
+table.tbl{
+  width:100%;border-collapse:collapse;text-align:center;background:#fff;
+  font-variant-numeric:tabular-nums;min-width:640px;
+}
+table.tbl thead th{
+  background:var(--p900);color:#fff;padding:17px 16px;
+  font-size:12px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;
+  border:1px solid var(--p900);white-space:nowrap;
+}
+table.tbl td{padding:24px 18px;border:1px solid var(--line);vertical-align:middle}
+table.tbl tbody tr{transition:background .15s}
+table.tbl tbody tr:hover{background:var(--tint2)}
+.t-date{font-size:19px;font-weight:500;white-space:nowrap}
+.t-date span{
+  display:block;font-size:12px;font-weight:400;color:var(--muted);
+  letter-spacing:.16em;text-transform:uppercase;margin-top:2px;
+}
+.t-title{font-size:18px;font-weight:500;line-height:1.35}
+.t-title span{
+  display:block;font-size:14px;font-weight:300;color:var(--muted);
+  line-height:1.55;margin:7px auto 0;max-width:44ch;
+}
+.t-num{white-space:nowrap;font-size:17px}
+.pill{
+  display:inline-block;font-size:11.5px;font-weight:500;letter-spacing:.14em;
+  text-transform:uppercase;padding:7px 14px;white-space:nowrap;
+}
+.pill.social{background:var(--tint2);color:var(--p700)}
+.pill.tournament{background:var(--p700);color:#fff}
+.pill.variants{background:var(--cream);color:#7A5A1E}
+.pill.away{background:#EEEBF1;color:var(--muted)}
+.pill.win{background:var(--p700);color:#fff}
+.pill.draw{background:#EEEBF1;color:var(--muted)}
+.pill.loss{background:#fff;color:var(--muted);box-shadow:inset 0 0 0 1px var(--line)}
+.score{font-size:21px;font-weight:500;letter-spacing:.02em}
+.lead-row{background:var(--tint2)}
+.lead-row .t-title{font-weight:600}
+
+/* ---------- calendar ---------- */
+.cal{max-width:820px;margin:0 auto}
+.cal-bar{
+  display:flex;align-items:center;justify-content:center;gap:18px;margin-bottom:22px;
+}
+.cal-bar h3{
+  margin:0;min-width:230px;text-align:center;
+  font-size:15px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;
+}
+.cal-bar button{
+  min-width:40px;height:40px;padding:0 14px;cursor:pointer;font-family:var(--font);
+  background:#fff;border:1px solid var(--line);color:var(--ink);
+  font-size:15px;font-weight:400;letter-spacing:.1em;line-height:1;
+  transition:background .15s,border-color .15s,color .15s;
+}
+.cal-bar button:hover{background:var(--p700);border-color:var(--p700);color:#fff}
+.cal-bar .today-btn{font-size:12px;letter-spacing:.16em;text-transform:uppercase}
+.board-wrap{display:grid;grid-template-columns:46px 1fr}
+.rail{display:grid;padding-top:32px}
+.rail span{
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:400;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+}
+.rail span.brk{color:var(--p500)}
+.board{display:flex;flex-direction:column;border:1px solid var(--p900)}
+.dow{display:grid;grid-template-columns:repeat(7,1fr);height:32px;background:var(--p900)}
+.dow span{
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.72);
+}
+.dow span.wed{color:#fff}
+.squares{display:grid;grid-template-columns:repeat(7,1fr)}
+.sq{
+  position:relative;aspect-ratio:1/1;border:0;padding:0;margin:0;display:block;
+  font-family:var(--font);font-size:14px;color:var(--ink);background:var(--cream);
+  transition:box-shadow .15s;
+}
+.sq.dark{background:var(--p600);color:var(--cream)}
+.sq .num{position:absolute;top:6px;left:9px;font-weight:400;opacity:.9}
+.sq.out{opacity:.3}
+.sq.has{cursor:pointer}
+.sq.has:hover,.sq.has:focus-visible{outline:none;box-shadow:inset 0 0 0 3px var(--p500)}
+.sq .knight{
+  position:absolute;bottom:4px;left:0;right:0;text-align:center;
+  font-size:clamp(17px,2.6vw,27px);line-height:1;color:var(--p700);
+}
+.sq.dark .knight{color:var(--cream)}
+.sq.today{box-shadow:inset 0 0 0 2px var(--ink)}
+.sq.sel,.sq.sel.today{box-shadow:inset 0 0 0 3px var(--ink)}
+.cal-detail{
+  margin-top:26px;border:1px solid var(--line);border-top:3px solid var(--p600);
+  padding:26px 24px;text-align:center;min-height:120px;background:#fff;
+}
+.cal-detail .d-date{
+  font-size:11.5px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--p500);
+}
+.cal-detail h4{margin:10px 0 8px;font-size:22px;font-weight:500;line-height:1.25}
+.cal-detail .d-meta{margin:0;font-size:16px;font-weight:500}
+.cal-detail .d-note{margin:8px auto 0;font-size:15px;font-weight:300;color:var(--muted);max-width:52ch}
+.cal-detail .empty{margin:0;font-size:15.5px;font-weight:300;color:var(--muted)}
+.legend{
+  list-style:none;display:flex;justify-content:center;flex-wrap:wrap;gap:28px;
+  margin:24px 0 0;padding:0;font-size:13.5px;font-weight:300;color:var(--muted);
+}
+.legend li{display:flex;gap:9px;align-items:center}
+.legend i{font-style:normal;color:var(--p700);font-size:16px}
+
+/* ---------- prose ---------- */
+.prose{max-width:70ch;margin:0 auto;text-align:center}
+.prose p{margin:0 0 20px;font-weight:300;font-size:17px}
+.prose p:last-child{margin-bottom:0}
+.prose strong{font-weight:500}
+.facts{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:0;
+  margin:44px 0 0;border-top:1px solid var(--line);border-left:1px solid var(--line);
+}
+.facts div{
+  border-right:1px solid var(--line);border-bottom:1px solid var(--line);
+  padding:24px 18px;text-align:center;
+}
+.facts dt{
+  font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--p600);margin-bottom:8px;
+}
+.facts dd{margin:0;font-size:16px;font-weight:400;line-height:1.5}
+.btn{
+  display:inline-block;text-decoration:none;font-size:13px;font-weight:500;
+  letter-spacing:.18em;text-transform:uppercase;padding:16px 38px;
+  background:var(--p700);color:#fff;border:1px solid var(--p700);
+  transition:background .16s,color .16s;
+}
+.btn:hover{background:var(--p900);border-color:var(--p900);color:#fff}
+.btn-line{background:#fff;color:var(--p700)}
+.btn-line:hover{background:var(--p700);color:#fff}
+.actions{text-align:center;margin-top:38px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--rule);padding:34px 0}
+.foot-in{display:flex;align-items:center;justify-content:space-between;gap:26px;flex-wrap:wrap}
+.foot-brand{display:flex;align-items:center;gap:14px}
+.foot-brand img{height:44px;width:auto}
+.foot-brand b{display:block;font-size:19px;font-weight:500}
+.foot-brand span{font-size:13.5px;font-weight:300;color:var(--muted)}
+.foot-links{display:flex;gap:26px;flex-wrap:wrap;font-size:14px;font-weight:300}
+.foot-links a{color:var(--muted);text-decoration:none}
+.foot-links a:hover{color:var(--p500)}
+
+@media (max-width:820px){
+  .masthead{padding:34px 0 24px}
+  .masthead .logo{height:140px}
+  .nav a{padding:13px 15px;font-size:15px}
+  .sec{padding:52px 0}
+  table.tbl td{padding:18px 14px}
+}
+@media (max-width:560px){
+  .wrap{padding:0 18px}
+  body{font-size:16px}
+  .masthead .logo{height:118px}
+  .next-band .val{font-size:17px}
+  .board-wrap{grid-template-columns:30px 1fr}
+  .rail span{font-size:9px}
+  .sq{font-size:12px}
+  .sq .num{top:4px;left:5px}
+  .cal-bar{gap:10px}
+  .cal-bar h3{min-width:0;font-size:13px;letter-spacing:.12em}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<header class="masthead" id="top">
+  <div class="wrap">
+    <img class="logo" src="uq-chess-logo.png" alt="UQ Chess Club logo: a faceted purple knight above the club name">
+    <p class="tagline">
+      The University of Queensland &middot; St Lucia campus<br>
+      Weekly meetings <b>every Wednesday from 5pm</b> at <b>Forgan Smith E107</b> &middot; All levels welcome
+    </p>
+  </div>
+</header>
+
+<nav class="nav" aria-label="Primary">
+  <div class="wrap nav-in">
+    <a href="#top" class="on">Home</a>
+    <a href="#events">Upcoming Events</a>
+    <a href="#calendar">Calendar</a>
+    <a href="#results">Results</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<div class="next-band">
+  <span class="lbl">Next event</span>
+  <span class="val">Club night: blitz ladder<span>Wednesday 2 September, 5:00 pm &middot; Forgan Smith E107</span></span>
+</div>
+
+<section class="sec" id="events">
+  <div class="wrap">
+    <div class="head">
+      <h2>Upcoming Events</h2>
+      <div class="rule"></div>
+      <p>Club nights run weekly in Forgan Smith E107 unless noted otherwise.</p>
+    </div>
+    <div class="scroller">
+      <table class="tbl">
+        <thead>
+          <tr><th>Date</th><th>Event</th><th>Format</th><th>Time</th><th>Venue</th></tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td class="t-date">2 Sep<span>Wed</span></td>
+          <td class="t-title">Club night: blitz ladder<span>Five-minute games on a running ladder. Drop in and out whenever you like.</span></td>
+          <td><span class="pill social">Social</span></td>
+          <td>5:00 pm</td>
+          <td>Forgan Smith E107</td>
+        </tr>
+        <tr>
+          <td class="t-date">9 Sep<span>Wed</span></td>
+          <td class="t-title">Club championship, round 1<span>Rapid, 25+10. Entries close at 5:15pm and pairings go up shortly after.</span></td>
+          <td><span class="pill tournament">Tournament</span></td>
+          <td>5:00 pm</td>
+          <td>Forgan Smith E107</td>
+        </tr>
+        <tr>
+          <td class="t-date">12 Sep<span>Sat</span></td>
+          <td class="t-title">Intervarsity match vs Griffith<span>Six boards. Carpooling from UQ Lakes at 9:00am.</span></td>
+          <td><span class="pill away">Away match</span></td>
+          <td>10:00 am</td>
+          <td>Griffith, Nathan campus</td>
+        </tr>
+        <tr>
+          <td class="t-date">16 Sep<span>Wed</span></td>
+          <td class="t-title">Club championship, round 2<span>Rapid, 25+10. Social boards run alongside for anyone not playing.</span></td>
+          <td><span class="pill tournament">Tournament</span></td>
+          <td>5:00 pm</td>
+          <td>Forgan Smith E107</td>
+        </tr>
+        <tr>
+          <td class="t-date">23 Sep<span>Wed</span></td>
+          <td class="t-title">Variants night<span>Bughouse, atomic and Chess960. Teams sorted on the night.</span></td>
+          <td><span class="pill variants">Variants</span></td>
+          <td>5:00 pm</td>
+          <td>Forgan Smith E107</td>
+        </tr>
+        <tr>
+          <td class="t-date">30 Sep<span>Wed</span></td>
+          <td class="t-title">Club championship, round 3<span>Rapid, 25+10. Last round before the mid-semester break.</span></td>
+          <td><span class="pill tournament">Tournament</span></td>
+          <td>5:00 pm</td>
+          <td>Forgan Smith E107</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-tint" id="calendar">
+  <div class="wrap">
+    <div class="head">
+      <h2>Semester Calendar</h2>
+      <div class="rule"></div>
+      <p>Squares marked with a knight have an event. Select one for the details.</p>
+    </div>
+
+    <div class="cal">
+      <div class="cal-bar">
+        <button type="button" id="prevM" aria-label="Previous month">&#8249;</button>
+        <h3 id="calLabel" aria-live="polite">September 2026</h3>
+        <button type="button" id="nextM" aria-label="Next month">&#8250;</button>
+        <button type="button" id="thisM" class="today-btn">Today</button>
+      </div>
+
+      <div class="cal-months" id="calMonths" data-active="0">
+        <div class="cal-month" data-label="September 2026">
+          <div class="board-wrap">
+            <div class="rail" style="grid-template-rows:repeat(5,1fr)" aria-hidden="true"><span class="">Wk 6</span><span class="">Wk 7</span><span class="">Wk 8</span><span class="">Wk 9</span><span class="brk">Break</span></div>
+            <div class="board">
+              <div class="dow"><span>Mon</span><span>Tue</span><span class="wed">Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+              <div class="squares"><div class="sq out today"><span class="num">31</span></div><div class="sq dark"><span class="num">1</span></div><button type="button" class="sq has" data-date="Wednesday 2 September" data-title="Club night: blitz ladder" data-time="5:00 pm" data-place="Forgan Smith E107" data-note="Five-minute games on a running ladder. Drop in and out whenever you like." aria-label="Wednesday 2 September: Club night: blitz ladder"><span class="num">2</span><span class="knight">&#9822;</span></button><div class="sq dark"><span class="num">3</span></div><div class="sq"><span class="num">4</span></div><div class="sq dark"><span class="num">5</span></div><div class="sq"><span class="num">6</span></div><div class="sq dark"><span class="num">7</span></div><div class="sq"><span class="num">8</span></div><button type="button" class="sq dark has" data-date="Wednesday 9 September" data-title="Club championship, round 1" data-time="5:00 pm" data-place="Forgan Smith E107" data-note="Rapid, 25+10. Entries close at 5:15pm and pairings go up shortly after." aria-label="Wednesday 9 September: Club championship, round 1"><span class="num">9</span><span class="knight">&#9822;</span></button><div class="sq"><span class="num">10</span></div><div class="sq dark"><span class="num">11</span></div><button type="button" class="sq has" data-date="Saturday 12 September" data-title="Intervarsity match vs Griffith" data-time="10:00 am" data-place="Griffith, Nathan campus" data-note="Six boards. Carpooling from UQ Lakes at 9:00am." aria-label="Saturday 12 September: Intervarsity match vs Griffith"><span class="num">12</span><span class="knight">&#9822;</span></button><div class="sq dark"><span class="num">13</span></div><div class="sq"><span class="num">14</span></div><div class="sq dark"><span class="num">15</span></div><button type="button" class="sq has" data-date="Wednesday 16 September" data-title="Club championship, round 2" data-time="5:00 pm" data-place="Forgan Smith E107" data-note="Rapid, 25+10. Social boards run alongside for anyone not playing." aria-label="Wednesday 16 September: Club championship, round 2"><span class="num">16</span><span class="knight">&#9822;</span></button><div class="sq dark"><span class="num">17</span></div><div class="sq"><span class="num">18</span></div><div class="sq dark"><span class="num">19</span></div><div class="sq"><span class="num">20</span></div><div class="sq dark"><span class="num">21</span></div><div class="sq"><span class="num">22</span></div><button type="button" class="sq dark has" data-date="Wednesday 23 September" data-title="Variants night" data-time="5:00 pm" data-place="Forgan Smith E107" data-note="Bughouse, atomic and Chess960. Teams sorted on the night." aria-label="Wednesday 23 September: Variants night"><span class="num">23</span><span class="knight">&#9822;</span></button><div class="sq"><span class="num">24</span></div><div class="sq dark"><span class="num">25</span></div><div class="sq"><span class="num">26</span></div><div class="sq dark"><span class="num">27</span></div><div class="sq"><span class="num">28</span></div><div class="sq dark"><span class="num">29</span></div><button type="button" class="sq has" data-date="Wednesday 30 September" data-title="Club championship, round 3" data-time="5:00 pm" data-place="Forgan Smith E107" data-note="Rapid, 25+10. Last round before the mid-semester break." aria-label="Wednesday 30 September: Club championship, round 3"><span class="num">30</span><span class="knight">&#9822;</span></button><div class="sq dark out"><span class="num">1</span></div><div class="sq out"><span class="num">2</span></div><div class="sq dark out"><span class="num">3</span></div><div class="sq out"><span class="num">4</span></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="cal-month" data-label="October 2026">
+          <div class="board-wrap">
+            <div class="rail" style="grid-template-rows:repeat(5,1fr)" aria-hidden="true"><span class="brk">Break</span><span class="">Wk 10</span><span class="">Wk 11</span><span class="">Wk 12</span><span class="">Wk 13</span></div>
+            <div class="board">
+              <div class="dow"><span>Mon</span><span>Tue</span><span class="wed">Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+              <div class="squares"><div class="sq out"><span class="num">28</span></div><div class="sq dark out"><span class="num">29</span></div><div class="sq out"><span class="num">30</span></div><div class="sq dark"><span class="num">1</span></div><div class="sq"><span class="num">2</span></div><div class="sq dark"><span class="num">3</span></div><div class="sq"><span class="num">4</span></div><div class="sq dark"><span class="num">5</span></div><div class="sq"><span class="num">6</span></div><button type="button" class="sq dark has" data-date="Wednesday 7 October" data-title="Club night: puzzle rush" data-time="5:00 pm" data-place="Forgan Smith E107" data-note="Back after the break. Tactics on the projector, teams of two." aria-label="Wednesday 7 October: Club night: puzzle rush"><span class="num">7</span><span class="knight">&#9822;</span></button><div class="sq"><span class="num">8</span></div><div class="sq dark"><span class="num">9</span></div><div class="sq"><span class="num">10</span></div><div class="sq dark"><span class="num">11</span></div><div class="sq"><span class="num">12</span></div><div class="sq dark"><span class="num">13</span></div><button type="button" class="sq has" data-date="Wednesday 14 October" data-title="Club championship, round 4" data-time="5:00 pm" data-place="Forgan Smith E107" data-note="Rapid, 25+10." aria-label="Wednesday 14 October: Club championship, round 4"><span class="num">14</span><span class="knight">&#9822;</span></button><div class="sq dark"><span class="num">15</span></div><div class="sq"><span class="num">16</span></div><div class="sq dark"><span class="num">17</span></div><div class="sq"><span class="num">18</span></div><div class="sq dark"><span class="num">19</span></div><div class="sq"><span class="num">20</span></div><button type="button" class="sq dark has" data-date="Wednesday 21 October" data-title="Simul vs the club champion" data-time="5:00 pm" data-place="Forgan Smith E107" data-note="Twenty boards at once. Sign-up sheet goes around at 4:45pm." aria-label="Wednesday 21 October: Simul vs the club champion"><span class="num">21</span><span class="knight">&#9822;</span></button><div class="sq"><span class="num">22</span></div><div class="sq dark"><span class="num">23</span></div><div class="sq"><span class="num">24</span></div><div class="sq dark"><span class="num">25</span></div><div class="sq"><span class="num">26</span></div><div class="sq dark"><span class="num">27</span></div><button type="button" class="sq has" data-date="Wednesday 28 October" data-title="End of semester rapid" data-time="4:30 pm" data-place="Forgan Smith E107" data-note="Six rounds, 10+5. Prizes, then pizza." aria-label="Wednesday 28 October: End of semester rapid"><span class="num">28</span><span class="knight">&#9822;</span></button><div class="sq dark"><span class="num">29</span></div><div class="sq"><span class="num">30</span></div><div class="sq dark"><span class="num">31</span></div><div class="sq out"><span class="num">1</span></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cal-detail" id="calDetail" aria-live="polite">
+        <p class="empty">Select a square marked with a knight to see what's on that day.</p>
+      </div>
+
+      <ul class="legend">
+        <li><i>&#9822;</i><span>Day has a club event</span></li>
+        <li><i>&#9633;</i><span>Outlined square is today</span></li>
+        <li><i>&#8212;</i><span>Left column shows the teaching week</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="results">
+  <div class="wrap">
+    <div class="head">
+      <h2>Results</h2>
+      <div class="rule"></div>
+      <p>Scores use standard notation — a win is 1, a draw is &frac12;.</p>
+    </div>
+
+    <h3 class="sub-head">Club championship standings - after round 3</h3>
+    <div class="scroller">
+      <table class="tbl">
+        <thead>
+          <tr><th>#</th><th>Player</th><th>Played</th><th>W–D–L</th><th>Points</th></tr>
+        </thead>
+        <tbody>
+        <tr class="lead-row">
+          <td>1</td>
+          <td class="t-title">A. Nguyen</td>
+          <td class="t-num">3</td>
+          <td class="t-num">3-0-0</td>
+          <td class="t-num"><b>3</b></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td class="t-title">M. Fitzgerald</td>
+          <td class="t-num">3</td>
+          <td class="t-num">2-1-0</td>
+          <td class="t-num"><b>2&frac12;</b></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td class="t-title">P. Raghavan</td>
+          <td class="t-num">3</td>
+          <td class="t-num">2-0-1</td>
+          <td class="t-num"><b>2</b></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td class="t-title">S. Okonkwo</td>
+          <td class="t-num">3</td>
+          <td class="t-num">1-2-0</td>
+          <td class="t-num"><b>2</b></td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td class="t-title">J. Callaghan</td>
+          <td class="t-num">3</td>
+          <td class="t-num">1-1-1</td>
+          <td class="t-num"><b>1&frac12;</b></td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td class="t-title">L. Tanaka</td>
+          <td class="t-num">2</td>
+          <td class="t-num">1-0-1</td>
+          <td class="t-num"><b>1</b></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="sub-head spaced">Recent Matches</h3>
+    <div class="scroller">
+      <table class="tbl">
+        <thead>
+          <tr><th>Date</th><th>Event</th><th>Opponent</th><th>Score</th><th>Outcome</th></tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td class="t-date">22 Aug<span>Sat</span></td>
+          <td class="t-title">Intervarsity match<span>Six boards, 60+30. Wins on boards 1, 3 and 5.</span></td>
+          <td>QUT - away</td>
+          <td class="t-num"><span class="score">4 - 2</span></td>
+          <td class="t-num"><span class="pill win">Win</span></td>
+        </tr>
+        <tr>
+          <td class="t-date">8 Aug<span>Sat</span></td>
+          <td class="t-title">Brisbane Uni Shield, round 2<span>Level after a long rook endgame on board four.</span></td>
+          <td>Griffith - away</td>
+          <td class="t-num"><span class="score">3 - 3</span></td>
+          <td class="t-num"><span class="pill draw">Draw</span></td>
+        </tr>
+        <tr>
+          <td class="t-date">5 Aug<span>Wed</span></td>
+          <td class="t-title">Friendly match<span>Close on the top boards, away with the depth.</span></td>
+          <td>Bond - home</td>
+          <td class="t-num"><span class="score">2&frac12; - 3&frac12;</span></td>
+          <td class="t-num"><span class="pill loss">Loss</span></td>
+        </tr>
+        <tr>
+          <td class="t-date">25 Jul<span>Sat</span></td>
+          <td class="t-title">Brisbane Uni Shield, round 1<span>Opening round of the season.</span></td>
+          <td>ACU - home</td>
+          <td class="t-num"><span class="score">4&frac12; - 1&frac12;</span></td>
+          <td class="t-num"><span class="pill win">Win</span></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-tint" id="about">
+  <div class="wrap">
+    <div class="head">
+      <h2>About the Club</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="prose">
+      <p>UQ Chess Club meets weekly on the St Lucia campus for students, staff and anyone in the wider Brisbane chess community who wants a game. <strong>No rating and no experience required.</strong> Most nights are social, with boards running from 5pm until people head home.</p>
+      <p>Through the semester we also run a <strong>club championship</strong> in rapid format, a rolling <strong>blitz ladder</strong>, and <strong>variants nights</strong> covering bughouse, atomic and Chess960. Members represent UQ in intervarsity matches against QUT, Griffith, Bond and ACU.</p>
+      <p>Equipment is provided. If it's your first time, arrive a little after 5pm and someone on the committee will pair you with a game at your level.</p>
+    </div>
+    <dl class="facts">
+      <div><dt>When</dt><dd>Wednesdays<br>5pm onwards</dd></div>
+      <div><dt>Where</dt><dd>Forgan Smith E107<br>St Lucia campus</dd></div>
+      <div><dt>Who</dt><dd>All levels<br>All faculties</dd></div>
+      <div><dt>Cost</dt><dd>Free to try<br>No membership needed</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="sec" id="contact">
+  <div class="wrap">
+    <div class="head">
+      <h2>Contact</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="prose">
+      <p>The quickest way to reach the committee is by email. We answer membership questions, match enquiries and requests to visit from other clubs.</p>
+      <p>If you'd rather just turn up, you don't need to tell us first — <strong>Wednesdays from 5pm, Forgan Smith E107.</strong></p>
+    </div>
+    <div class="actions">
+      <a class="btn" href="mailto:uqchessclub@gmail.com">Email the club</a>
+      <a class="btn btn-line" href="#events">See what's on</a>
+    </div>
+    <dl class="facts">
+      <div><dt>Email</dt><dd><a href="mailto:uqchessclub@gmail.com">uqchessclub@gmail.com</a></dd></div>
+      <div><dt>Instagram</dt><dd><a href="#">@uqchessclub</a></dd></div>
+      <div><dt>Facebook</dt><dd><a href="#">UQ Chess Club</a></dd></div>
+      <div><dt>Campus</dt><dd>St Lucia<br>Brisbane QLD</dd></div>
+    </dl>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-in">
+    <div class="foot-brand">
+      <img src="uq-chess-knight.png" alt="">
+      <span>
+        <b>UQ Chess Club</b>
+        <span>The University of Queensland &middot; Brisbane QLD</span>
+      </span>
+    </div>
+    <div class="foot-links">
+      <a href="#events">Upcoming Events</a>
+      <a href="#calendar">Calendar</a>
+      <a href="#results">Results</a>
+      <a href="#about">About</a>
+      <a href="mailto:uqchessclub@gmail.com">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var wrap   = document.getElementById("calMonths");
+  var months = Array.prototype.slice.call(wrap.querySelectorAll(".cal-month"));
+  var label  = document.getElementById("calLabel");
+  var detail = document.getElementById("calDetail");
+  var home   = Number(wrap.getAttribute("data-active")) || 0;
+  var idx    = home;
+
+  function show(i) {
+    if (i < 0 || i >= months.length) return;
+    idx = i;
+    months.forEach(function (m, k) { m.style.display = (k === i) ? "block" : "none"; });
+    label.textContent = months[i].getAttribute("data-label");
+  }
+
+  document.getElementById("prevM").addEventListener("click", function () { show(idx - 1); });
+  document.getElementById("nextM").addEventListener("click", function () { show(idx + 1); });
+  document.getElementById("thisM").addEventListener("click", function () { show(home); });
+
+  wrap.addEventListener("click", function (e) {
+    var btn = e.target.closest(".sq.has");
+    if (!btn) return;
+    wrap.querySelectorAll(".sq.sel").forEach(function (s) { s.classList.remove("sel"); });
+    btn.classList.add("sel");
+    detail.innerHTML =
+      '<span class="d-date">' + btn.getAttribute("data-date") + '</span>' +
+      '<h4>' + btn.getAttribute("data-title") + '</h4>' +
+      '<p class="d-meta">' + btn.getAttribute("data-time") + ' \u00b7 ' +
+        btn.getAttribute("data-place") + '</p>' +
+      '<p class="d-note">' + btn.getAttribute("data-note") + '</p>';
+  });
+
+  show(idx);
+
+  var links = Array.prototype.slice.call(document.querySelectorAll(".nav a"));
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (!en.isIntersecting) return;
+      links.forEach(function (a) { a.classList.remove("on"); });
+      var match = links.filter(function (a) { return a.getAttribute("href") === "#" + en.target.id; });
+      (match[0] || links[0]).classList.add("on");
+    });
+  }, { rootMargin: "-30% 0px -60% 0px" });
+  ["top","events","calendar","results","about","contact"].forEach(function (id) {
+    var el = document.getElementById(id); if (el) io.observe(el);
+  });
+})();
+</script>
+</body>
+</html>
